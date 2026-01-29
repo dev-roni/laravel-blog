@@ -1,0 +1,674 @@
+:root {
+    --primary-dark: #332D56;
+    --primary-medium: #4E6688;
+    --primary-light: #71C0BB;
+    --accent-color: #E3EEB2;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --dark-text: #333333;
+}
+
+/* ==================== BASE STYLES ==================== */
+.body {
+    background-color: var(--light-gray);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark-text);
+}
+
+/* ==================== DASHBOARD LAYOUT ==================== */
+/* Sidebar Styles */
+.sidebar {
+    background: linear-gradient(180deg, var(--primary-dark), var(--primary-medium));
+    color: var(--white);
+    height: 100vh;
+    position: fixed;
+    width: 250px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-menu li {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: 25px;
+}
+
+.sidebar-menu li a {
+    color: var(--white);
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+}
+
+.sidebar-menu li.active {
+    background-color: var(--primary-light);
+    border-left: 4px solid var(--accent-color);
+}
+
+.sidebar-menu li i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 250px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+/* Top Navigation Bar */
+.top-navbar {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 25px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==================== DASHBOARD COMPONENTS ==================== */
+/* Stats Cards */
+.stats-card {
+    border-radius: 12px;
+    padding: 25px;
+    color: var(--white);
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stats-card-1 {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+}
+
+.stats-card-2 {
+    background: linear-gradient(135deg, var(--primary-medium), var(--primary-light));
+}
+
+.stats-card-3 {
+    background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
+    color: var(--dark-text);
+}
+
+.stats-card-4 {
+    background: linear-gradient(135deg, var(--accent-color), var(--white));
+    color: var(--dark-text);
+}
+
+.stats-card i {
+    font-size: 2.5rem;
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+.stats-card .stats-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 5px 0;
+}
+
+.stats-card .stats-label {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* Recent Posts Table */
+.recent-posts {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+.table thead th {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    border: none;
+    padding: 12px 15px;
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+.badge-published, .post-table .badge-published {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-align: center; /* অনুভূমিকভাবে মাঝখানে আনুন */
+    vertical-align: middle; /* উল্লম্বভাবে মাঝখানে আনুন */
+}
+
+.badge-draft, .post-table .badge-draft {
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-align: center; /* অনুভূমিকভাবে মাঝখানে আনুন */
+    vertical-align: middle; /* উল্লম্বভাবে মাঝখানে আনুন */
+    
+}
+
+/* Activity Feed */
+.activity-feed {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.activity-item {
+    border-left: 3px solid var(--primary-light);
+    padding-left: 15px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.activity-item:last-child {
+    margin-bottom: 0;
+}
+
+.activity-time {
+    color: var(--primary-medium);
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* ==================== POST MANAGEMENT ==================== */
+/* Search and Filter Section */
+.filter_section {
+    background-color: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Action Buttons */
+.btn-action {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.btn-action:last-child {
+    margin-right: 0;
+}
+
+tr .btn-edit, .category-card .btn-edit {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border: none;
+}
+
+.btn-edit:hover {
+    background-color: darken(var(--primary-light), 10%);
+}
+
+tr .btn-delete, .category-card .btn-delete {
+    background-color: #dc3545;
+    color: var(--white);
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: darken(#dc3545, 10%);
+}
+
+tr .btn-view {
+    background-color: var(--primary-medium);
+    color: var(--white);
+    border: none;
+}
+
+.btn-view:hover {
+    background-color: darken(var(--primary-medium), 10%);
+}
+
+/* Table Styles */
+.post-table {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-table th {
+        background-color: var(--primary-dark);
+        color: white;
+    }
+/* Pagination */
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.pagination .page-link {
+    color: var(--primary-dark);
+    border: 1px solid #dee2e6;
+    margin: 0 5px;
+    border-radius: 6px;
+}
+
+.pagination .page-link:hover {
+    background-color: var(--light-gray);
+}
+
+/* ==================== POST CREATION FORM ==================== */
+.post-form {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    margin-bottom: 35px;
+}
+
+.form-section h4 {
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Featured Image Upload */
+.featured-image-upload {
+    border: 2px dashed #ddd;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--light-gray);
+}
+
+.featured-image-upload:hover {
+    border-color: var(--primary-light);
+    background-color: rgba(113, 192, 187, 0.1);
+}
+
+.featured-image-preview {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    display: none;
+    margin-top: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit Buttons */
+.post_complete .btn-submit{
+    background-color: var(--primary-dark);
+    color: var(--white);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.post_complete .btn-submit:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    
+}
+
+.post_complete .btn-draft {
+    background-color: var(--accent-color);
+    color: var(--dark-text);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.post_complete .btn-draft:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    color:white;
+
+}
+
+/* ==================== CATEGORY PAGE ==================== */
+/* Category Cards */
+.category-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-light);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.category-count {
+    background-color: var(--accent-color);
+    color: var(--dark-text);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+/*ক্যাটাগরি তৈরি পেজের জন্য */
+/* ফর্ম স্টাইল */
+.form-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-section h4 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+/* ফিচার্ড ইমেজ আপলোড */
+.image-upload-container {
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: #f9f9f9;
+}
+
+.image-upload-container:hover {
+    border-color: var(--primary-light);
+    background-color: rgba(113, 192, 187, 0.1);
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    display: none;
+    margin-top: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* বাটন স্টাইল */
+.form-card .btn-submit, .tab-content .btn-submit {
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.form-card .btn-submit:hover, .tab-content .btn-submit:hover  {
+    background-color: var(--primary-medium);
+    transform: translateY(-2px);
+    color: var(--accent-color);
+    
+}
+
+.form-card .btn-draft {
+    background-color: var(--accent-color);
+    color: #333;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.form-card .btn-draft:hover {
+    background-color: #d4e0a0;
+    transform: translateY(-2px);
+}
+
+/*ইউজার পেজের জন্য*/
+/* টেবিল স্টাইল */
+.user-table {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th {
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ব্যাজ স্টাইল */
+.badge-admin {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.badge-author {
+    background-color: var(--primary-medium);
+    color: #333;
+}
+
+.badge-user {
+    background-color: #072a4d;
+    color: #222020;
+}
+
+/*কমেন্ট পেজের জন্য*/
+.comment-header {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 30px 0;
+    margin-bottom: 30px;
+    border-radius: 0 0 10px 10px;
+}
+
+.comment-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-light);
+}
+
+.comment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 10px 11px rgba(113, 192, 187, 0.3);
+}
+
+.comment-author {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.comment-date {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.comment-post {
+    color: var(--primary-medium);
+    font-weight: 500;
+}
+
+.comment-actions .btn {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+.comment-card .btn-approve {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.comment-card .btn-reject {
+    background-color: #dc3545;
+    color: white;
+}
+
+.comment-card .btn-reply {
+    background-color: var(--primary-medium);
+    color: white;
+}
+
+.badge-pending {
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+}
+
+.badge-approved {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+
+/*সেটিংস পেজের জন্য*/
+        
+/* সেটিংস ট্যাব */
+.settings-tabs .nav-link {
+    color: var(--primary-dark);
+    border: none;
+    padding: 12px 20px;
+    font-weight: 500;
+}
+
+.settings-tabs .nav-link.active {
+    color: var(--primary-dark);
+    background-color: transparent;
+    border-bottom: 3px solid var(--primary-light);
+}
+
+/* সেটিংস কার্ড */
+.settings-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.settings-card h4 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* সুইচ স্টাইল */
+.form-switch .form-check-input {
+    width: 3em;
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+#sidebarCollapse {
+    display: none;
+    background-color: var(--primary-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+    .sidebar.active {
+        margin-left: 0;
+    }
+    .main-content {
+        margin-left: 0;
+    }
+    #sidebarCollapse {
+        display: block;
+    }
+    
+    .stats-card {
+        padding: 20px;
+    }
+    
+    .filter_section, 
+    .recent-posts, 
+    .activity-feed,
+    .post-form,
+    .category-card {
+        padding: 20px;
+    }
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.text-primary {
+    color: var(--primary-dark) !important;
+}
+
+.bg-primary,#bg-primary {
+    background-color: var(--primary-dark) !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-lg {
+    border-radius: 12px;
+}
+
+.transition {
+    transition: all 0.3s ease;
+}
+
