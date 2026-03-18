@@ -18,25 +18,25 @@ class CategorySeeder extends Seeder
             'category_name' => 'Travel & Adventure',
             'category_description' => 'Explore the world with our travel guides.',
             'category_slug' => 'travel-adventure',
-            'category_img' => 'images/category/travel.jpg',
+            'category_img' => '1773829080.jpg',
             ],
             [ 
             'category_name' => 'science',
             'category_description' => 'Explore the world with our travel guides.',
             'category_slug' => 'travel-adventure',
-            'category_img' => 'images/category/travel.jpg',
+            'category_img' => '1773829080.jpg',
             ],
             [ 
             'category_name' => 'Education',
             'category_description' => 'Explore the world with our travel guides.',
             'category_slug' => 'travel-adventure',
-            'category_img' => 'images/category/travel.jpg',
+            'category_img' => '1773829080.jpg',
             ],
             [ 
             'category_name' => 'lifestyle',
             'category_description' => 'Explore the world with our travel guides.',
             'category_slug' => 'travel-adventure',
-            'category_img' => 'images/category/travel.jpg',
+            'category_img' => '1773829080.jpg',
         ]
     ]);
     }

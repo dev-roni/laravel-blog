@@ -76,6 +76,19 @@ class CaroselController extends Controller
     }
 
     //custom method
+    public function add($id)
+    {
+        $carosels_exist=Carosel::where('categories_id',$id)->exists();
+        if(!$carosels_exist){
+            $carosel= new Carosel();
+            $carosel->categories_id =$id;
+            $carosel->carosel_select='no';
+            $carosel->save();
+        }
+
+        return redirect()->back()->with('success','carosel add successfully');
+    }
+
     public function carosel1($id,$status)
     {
         Carosel::where('carosel_select', 'first')->update(['carosel_select' => $status]);

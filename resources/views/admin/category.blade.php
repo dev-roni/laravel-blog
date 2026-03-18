@@ -35,6 +35,9 @@
                     </div>
                     <p class="text-muted mb-4">{{ $category->category_description }}</p>
                     <div class="d-flex justify-content-end">
+                        <a href="{{route('carosel.add',$category->id)}}" class="btn btn-sm btn-edit btn-action me-3" >
+                            ক্যারোসেল সেট
+                        </a>
                         <a href="{{route('category_edit_view',$category->id)}}" class="btn btn-sm btn-edit btn-action" target="_blank" >
                             <i class="bi bi-pencil"></i> এডিট
                         </a>
