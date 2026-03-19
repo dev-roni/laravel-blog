@@ -99,7 +99,7 @@ route::middleware('editor')->group(function(){
     route::post('password-update/{user_id}',[ProfileController::class,'password_update'])->name('password_update');
     //carosel setting
     route::resource('carosel',CaroselController::class);
-    route::any('carosel1/{id}',[CaroselController::class,'add'])->name('carosel.add');
+    route::any('carosel1/{id}',[CaroselController::class,'carosel_add'])->name('carosel.add');
     route::any('carosel1/{id}/{status}',[CaroselController::class,'carosel1'])->name('carosel1');
     route::any('carosel2/{id}/{status}',[CaroselController::class,'carosel2'])->name('carosel2');
     route::any('carosel3/{id}/{status}',[CaroselController::class,'carosel3'])->name('carosel3');

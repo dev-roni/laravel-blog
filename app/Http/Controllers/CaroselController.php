@@ -76,7 +76,7 @@ class CaroselController extends Controller
     }
 
     //custom method
-    public function add($id)
+    public function carosel_add($id)
     {
         $carosels_exist=Carosel::where('categories_id',$id)->exists();
         if(!$carosels_exist){
