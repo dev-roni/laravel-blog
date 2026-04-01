@@ -57,7 +57,7 @@ class Authentication extends Controller
         $user_create->password = Hash::make($request->password);
         
             if ($user_create->save()) {
-                return redirect()->route('login_view')->with('success', 'User created successfully');
+                return redirect()->route('login')->with('success', 'User created successfully');
             }
         }
     }
@@ -71,31 +71,35 @@ class Authentication extends Controller
     //loged in
     public function loged_in(Request $request){
         
-        $validator= Validator::make($request->all(),[
-            'email' => 'required|email|max:100',
-            'password' => 'required|min:8|max:20'
-        ],[
-            'email.required' => 'আপনার ইমেইল দিন',
-            'email.email' => 'সঠিক ইমেইল দিন',
-            'email.max' => 'ইমেইল 100 অক্ষরের মধ্যে হতে হবে',
+       $validator = Validator::make($request->all(), [
+                'email' => 'required|email|max:100',
+                'password' => 'required|min:8|max:20'
+            ], [
+                'email.required' => 'আপনার ইমেইল দিন',
+                'email.email' => 'সঠিক ইমেইল দিন',
+                'email.max' => 'ইমেইল 100 অক্ষরের মধ্যে হতে হবে',
 
-            'password.required' => 'পাসওয়ার্ড দিন',
-            'password.min' => 'পাসওয়ার্ড সর্বনিম্ন ৮ অক্ষরের হতে হবে',
-            'password.max' => 'পাসওয়ার্ড সর্বোচ্চ 20 অক্ষরের হতে হবে'
-        ]);
+                'password.required' => 'পাসওয়ার্ড দিন',
+                'password.min' => 'পাসওয়ার্ড সর্বনিম্ন ৮ অক্ষরের হতে হবে',
+                'password.max' => 'পাসওয়ার্ড সর্বোচ্চ 20 অক্ষরের হতে হবে'
+            ]);
 
-        if($validator->fails()){
-            return redirect()->back()->witherrors($validator)->withinput();
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
         }
-        $valid_data= $validator->validate();
-        if($validator->passes()){
-            if(Auth::attempt(['email' =>$valid_data['email'], 'password' => $valid_data['password']])){
-                return redirect()->intended('destiny');
-            }
-            else{
-                return redirect()->route('login');
-            }
+
+        // 🔥 validated data
+        $valid_data = $validator->validated();
+
+        // 🔐 login attempt
+        if (Auth::attempt([
+            'email' => $valid_data['email'],
+            'password' => $valid_data['password']
+        ])) {
+            return redirect()->intended('destiny');
         }
+
+        return back()->with('error', 'ইমেইল বা পাসওয়ার্ড ভুল');
     }
 
     public function destiny(){

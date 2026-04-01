@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class postValidation extends FormRequest
+class postUpdateValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,19 +21,27 @@ class postValidation extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('id');
         return [
-            'post_title'    => 'required|string|max:250',
-            'post_category' => 'required|string|max:100',
-            'post_content'  => 'required|string',
-            'post_img'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'post_status'   => 'required|in:draft,pending',
-            'author'        => 'nullable|integer',
-            'slug'          => 'required|string|max:255|unique:posts,slug',
-            'clicked'       => 'nullable|integer',
+            'post_category' => 'required|integer|exists:categories,id',
+
+            'post_title' => 'required|string|max:255',
+
+            'post_img' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'post_content' => 'required|string',
+
+            'post_status' => 'required|in:draft,pending',
+
+            'author' => 'nullable|string',
+
+            'slug' => 'required|string|max:255|unique:posts,slug,' . $id,
+
+            'clicked' => 'nullable|integer',
         ];
     }
 
-    public function massage(): array
+      public function massage(): array
     {
         return [
             'post_title.required'    => '! পোষ্টের টাইটেল দিন',

@@ -18,96 +18,151 @@
         
         <div class="card-body">
           <form action="{{ route('post_update', $postdata->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            
-            <!-- শিরোনাম সেকশন -->
-            <div class="mb-4">
-              <label for="editTitle" class="form-label fw-bold">পোস্ট শিরোনাম</label>
-              <input type="text" class="form-control form-control-lg rounded-3" id="editTitle" 
-                     name="post_title" value="{{ old('post_title', $postdata->post_title) }}" required>
-              @error('post_title')
-                <div class="text-danger small mt-1">{{ $message }}</div>
-              @enderror
-            </div>
+              @csrf
 
-            <!-- ক্যাটাগরি এবং ইমেজ সেকশন -->
-            <div class="row mb-4">
-              <div class="col-md-6">
-                <label for="editCategory" class="form-label fw-bold">ক্যাটাগরি</label>
-                <select class="form-select rounded-3" id="editCategory" name="post_category" required>
-                  <option value="{{ $category_data->id }}" selected>{{ $category_data->category_name }}</option>
-                  @foreach($categories as $category)
-                    @if($category_data->id != $category->id)
-                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                    @endif
-                  @endforeach
-                </select>
-                @error('post_category')
-                  <div class="text-danger small mt-1">{{ $message }}</div>
-                @enderror
-              </div>
-              
-              <div class="col-md-6">
-                <label for="editImage" class="form-label fw-bold">ফিচার্ড ইমেজ</label>
-                <div class="input-group">
-                  <input type="file" class="form-control rounded-3" id="editImage" name="image" 
-                         aria-describedby="imageHelp">
-                </div>
-                <div id="imageHelp" class="form-text">JPEG, PNG বা JPG ফরম্যাট, সর্বোচ্চ 2MB</div>
-                @error('image')
-                  <div class="text-danger small mt-1">{{ $message }}</div>
-                @enderror
-                
-                <!-- বর্তমান ইমেজ প্রিভিউ -->
-                @if($postdata->image)
-                <div class="mt-3">
-                  <p class="mb-1 small text-muted">বর্তমান ইমেজ:</p>
-                  <img src="{{ asset('storage/'.$postdata->image) }}" alt="Current Post Image" 
-                       class="img-thumbnail rounded-3" style="max-height: 150px;">
-                </div>
-                @endif
-              </div>
-            </div>
+              {{-- ALL ERRORS --}}
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul class="mb-0">
+                          @foreach ($errors->all() as $error)
+                              <li>👉 {{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
 
-            <!-- কন্টেন্ট সেকশন -->
-            <div class="mb-4">
-              <label for="editContent" class="form-label fw-bold">পোস্ট কন্টেন্ট</label>
-              <textarea class="form-control rounded-3" id="editContent" name="post_content" 
-                        rows="10" required>{{ old('post_content', $postdata->post_content) }}</textarea>
-              @error('post_content')
-                <div class="text-danger small mt-1">{{ $message }}</div>
-              @enderror
-            </div>
+              <!-- Title -->
+              <div class="mb-4">
+                  <label class="form-label fw-bold">পোস্ট শিরোনাম</label>
 
-            <!-- ট্যাগস এবং স্ট্যাটাস সেকশন -->
-            <div class="row mb-4">
-              <div class="col-md-6">
-                <label for="editTags" class="form-label fw-bold">ট্যাগস (ঐচ্ছিক)</label>
-                <input type="text" class="form-control rounded-3" id="editTags" name="tags"
-                       value="{{ old('tags', $postdata->tags) }}" placeholder="কমা দ্বারা পৃথক করুন">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-bold">স্ট্যাটাস</label>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="statusSwitch" name="is_published"
-                         {{ $postdata->is_published ? 'checked' : '' }} value="1">
-                  <label class="form-check-label" for="statusSwitch">
-                    {{ $postdata->is_published ? 'প্রকাশিত' : 'খসড়া' }}
-                  </label>
-                </div>
-              </div>
-            </div>
+                  <input type="text"
+                        class="form-control form-control-lg rounded-3 @error('post_title') is-invalid @enderror"
+                        name="post_title"
+                        value="{{ old('post_title', $postdata->post_title) }}">
 
-            <!-- সাবমিট বাটন -->
-            <div class="d-flex justify-content-between align-items-center mt-4">
-              <button type="submit" name="submit" class="btn btn-success px-4 py-2 rounded-pill">
-                <i class="bi bi-check-circle me-2"></i>আপডেট করুন
-              </button>
-              
-              <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
-                <i class="bi bi-x-circle me-2"></i> বাতিল করুন
-              </a>
-            </div>
+                  @error('post_title')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+              </div>
+
+              <!-- Category + Image -->
+              <div class="row mb-4">
+
+                  <div class="col-md-6">
+                      <label class="form-label fw-bold">ক্যাটাগরি</label>
+
+                      <select class="form-select rounded-3 @error('post_category') is-invalid @enderror"
+                              name="post_category">
+
+                          <option value="">Select Category</option>
+
+                          @foreach($categories as $category)
+                              <option value="{{ $category->id }}"
+                                  {{ old('post_category', $postdata->post_category) == $category->id ? 'selected' : '' }}>
+                                  {{ $category->category_name }}
+                              </option>
+                          @endforeach
+
+                      </select>
+
+                      @error('post_category')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+                  <div class="col-md-6">
+                      <label class="form-label fw-bold">ফিচার্ড ইমেজ</label>
+
+                      <input type="file"
+                            class="form-control rounded-3 @error('image') is-invalid @enderror"
+                            name="image">
+
+                      @error('image')
+                          <div class="invalid-feedback d-block">{{ $message }}</div>
+                      @enderror
+
+                      <!-- Current Image -->
+                      @if($postdata->image)
+                          <div class="mt-3">
+                              <p class="mb-1 small text-muted">বর্তমান ইমেজ:</p>
+                              <img src="{{ asset('storage/'.$postdata->image) }}"
+                                  class="img-thumbnail rounded-3"
+                                  style="max-height: 150px;">
+                          </div>
+                      @endif
+
+                  </div>
+
+              </div>
+
+              <!-- Content -->
+              <div class="mb-3">
+                  <label class="form-label">কন্টেন্ট</label>
+
+                  <textarea name="post_content"
+                          rows="10"
+                          class="form-control @error('post_content') is-invalid @enderror"
+                          placeholder="Write your post...">{{ old('post_content', $postdata->post_content) }}</textarea>
+
+                  @error('post_content')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+              </div>
+
+              <!-- Tags + Status -->
+              <div class="row mb-4">
+
+                  <!-- Slug -->
+                  <div class="mb-3">
+                      <label class="form-label">URL স্লাগ</label>
+
+                      <input type="text"
+                          name="slug"
+                          value="{{ old('slug',$postdata->slug) }}"
+                          class="form-control @error('slug') is-invalid @enderror">
+
+                      @error('slug')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+                  <!-- Status -->
+                  <div class="mb-3">
+                      <label class="form-label">স্ট্যাটাস</label>
+
+                      <select name="post_status"
+                              class="form-control @error('post_status') is-invalid @enderror">
+
+                          <option value="published"
+                              {{ old('post_status') == 'published' ? 'selected' : '' }}>
+                              প্রকাশিত
+                          </option>
+
+                          <option value="draft"
+                              {{ old('post_status') == 'draft' ? 'selected' : '' }}>
+                              খসড়া
+                          </option>
+
+                      </select>
+
+                      @error('post_status')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+              </div>
+
+              <!-- Buttons -->
+              <div class="d-flex justify-content-between align-items-center mt-4">
+                  <button type="submit" class="btn btn-success px-4 py-2 rounded-pill">
+                      <i class="bi bi-check-circle me-2"></i>আপডেট করুন
+                  </button>
+
+                  <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
+                      <i class="bi bi-x-circle me-2"></i> বাতিল করুন
+                  </a>
+              </div>
+
           </form>
         </div>
       </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BlogSiteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
@@ -24,8 +25,21 @@ Route::get('about',[BlogSiteController::class,'site_about'])->name('site_about')
 Route::get('contact',[BlogSiteController::class,'site_contact'])->name('site_contact');
 
 Route::any('comment-store/{post_id}',[CommentController::class,'comment_store'])->middleware('comment')->name('comment.store');
-
 Route::any('comment-delete/{post_id}',[CommentController::class,'comment_delete'])->middleware('auth')->name('comment.delete');
+
+/*-------profile manage auth user-----------*/
+Route::middleware('auth')->group(function(){
+Route::get('user-profile',[UserProfileController::class,'index'])->name('user.profile');
+Route::post('user-profile-picture',[UserProfileController::class,'picture'])->name('user.profile.picture');
+Route::put('user-profile-data',[UserProfileController::class,'user_data'])->name('user.profile.data');
+Route::put('user-password',[UserProfileController::class,'password'])->name('user.password');
+
+route::get('post-create',[UserProfileController::class,'post_create'])->name('post.create');
+route::post('post-store',[UserProfileController::class,'post_store'])->name('post.store');
+route::get('post-edit/{id}',[UserProfileController::class,'post_edit'])->name('post.edit');
+route::put('post-update/{id}',[UserProfileController::class,'post_update'])->name('post.update');
+route::delete('post-delete/{id}',[UserProfileController::class,'post_delete'])->name('user.post.delete');
+});
 
 /*-------admin pannel all route-----------*/
 //authentication

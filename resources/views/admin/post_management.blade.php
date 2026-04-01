@@ -65,9 +65,9 @@
                     <tbody>
                         @foreach($post_data as $postdata)
                         <tr>
-                            <td>{{$postdata->id}}</td>
+                            <td>{{$loop->iteration + ($post_data->currentPage() - 1) * $post_data->perPage()}}</td>
                             <td>{{$postdata->post_title}}</td>
-                            <td>{{$postdata->author}}</td>
+                            <td>{{ $postdata->lekhok }}</td>
                             <td>{{$postdata->category_name}}</td>
                             @if($postdata->post_status == 'published')
                             <td><span class="badge-published ">Published</span></td>

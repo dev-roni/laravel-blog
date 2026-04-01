@@ -31,7 +31,7 @@ class BlogSiteController extends Controller
             $category->post_count = Post::where('post_category', $category->id)->count();
         }
         $carosels=Carosel::all();
-        $post_data=Post::with('comments')->Paginate(4);
+        $post_data=Post::with('comments')->where('post_status','published')->latest()->Paginate(4);
         foreach($post_data as $post){
             $post->short_content = Str::limit($post->post_content, 180,'');
             $post->category_data=Category::where('id',$post->post_category)->first();

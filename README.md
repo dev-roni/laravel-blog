@@ -70,7 +70,7 @@ A robust and scalable blogging platform built with the **Laravel framework**, fe
 ## 📸 Interface Preview
 
 ### 🏠 Landing Page
-![Homepage](.github/screenshots/euphoria-homepage.png)
+![Homepage](.github/screenshots/Homepage.png)
 
 ### 🖥️ Management Dashboards
 

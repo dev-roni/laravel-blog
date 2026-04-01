@@ -110,7 +110,7 @@
                 <button type="submit" name="submit" class="btn regi-btn btn-register">Register</button>
                 
                 <div class="login-link">
-                    <p class="text-muted">Already have an account? <a href="{{route('login_view')}}">Login here</a></p>
+                    <p class="text-muted">Already have an account? <a href="{{route('login')}}">Login here</a></p>
                 </div>
             </form>
         </div>

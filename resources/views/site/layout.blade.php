@@ -7,6 +7,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <!-- Custom CSS -->
+     @stack('styles')
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 </head>
@@ -39,11 +40,11 @@
                     <li class="nav-item">
                         @if(Auth::check())
                         <div class="dropdown ">
-                            <a class="dropdown-toggle d-flex align-items-center text-decoration-none comment-author nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="dropdown-toggle d-flex align-items-center text-decoration-none comment-author nav-link" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person me-2"></i><span>{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{route('profile',Auth::user()->id)}}">প্রোফাইল</a></li>
+                                <li><a class="dropdown-item" href="{{route('user.profile')}}">প্রোফাইল</a></li>
                                 <li><a class="dropdown-item" href="#">পছন্দের ব্লগ</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
@@ -93,7 +94,7 @@
                 </div>
             </div>
             <hr class="my-4 bg-light">
-            <p class="mb-0 text-center">&copy; ২০২৩ আমার ব্লগ। সকল স্বত্ব সংরক্ষিত।</p>
+            <p class="mb-0 text-center">&copy; ২০২৫ আমার ব্লগ। সকল স্বত্ব সংরক্ষিত।</p>
         </div>
     </footer>
      @if(session('success'))

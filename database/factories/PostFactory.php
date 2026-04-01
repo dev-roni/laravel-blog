@@ -28,7 +28,7 @@ class PostFactory extends Factory
             'post_category' => $this->faker->numberBetween(1, 4),
             'post_content' => $this->faker->paragraphs(rand(3, 7), true), // 3-7 paragraphs of text
             'post_status' => $this->faker->randomElement(['published', 'draft', 'pending']), // Random status
-            'author' => 'somor',
+            'author' => $this->faker->numberBetween(1, 3),
             'slug' => Str::slug($this->faker->unique()->sentence(5)), // Generates a unique slug from a sentence
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'), // Random date within the last year
             'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'), // Random date within the last year

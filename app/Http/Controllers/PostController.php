@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Request\postValidation;
+use App\Http\Requests\postValidation;
+use App\Http\Requests\postUpdateValidation;
 
 class PostController extends Controller
 {
     //post search
      public function post_search(Request $request){
         $categories=Category::select('id','category_name')->get();
-        $post_data = Post::where('post_title', 'like', '%' . $request->search_text . '%')->paginate(10);
+        $post_data = Post::where('post_title', 'like', '%' . $request->search_text . '%')->append()->latest()->paginate(10);
         $title = 'Post Search result';
         return view('admin.post_management',compact('post_data','title','categories'));
     }
@@ -35,10 +38,12 @@ class PostController extends Controller
     //Post management view
     public function post_management(){
         $categories=Category::select('id','category_name')->get();
-        $post_data=Post::paginate(8);
+        $post_data=Post::latest()->paginate(8);
             foreach ($post_data as $post) {
             $category_name = Category::where('id', $post->post_category)->first();
             $post->category_name = $category_name->category_name;
+            $user = User::where('id',$post->author)->first();
+            $post->lekhok = $user->name;
         }
         $title='Post Management';
         return view('admin.post_management',compact('post_data','title','categories'));
@@ -86,7 +91,7 @@ class PostController extends Controller
         $post_input->post_category = $request->post_category;
         $post_input->slug          = $request->slug;
         $post_input->post_content  = $request->post_content;
-        $post_input->author        = "boss";
+        $post_input->author        = auth()->id();
         $post_input->post_status   = $request->post_status;
 
         if ($post_input->save()) {
@@ -119,7 +124,7 @@ class PostController extends Controller
         return view('admin.post_edit',compact('postdata','categories','category_data'),['title' => 'edit_post']);
     }
     //Post edit update
-    public function post_update(postValidation $request, $post_id){
+    public function post_update(postUpdateValidation $request, $post_id){
     
         $validateData= $request->validated();
 
