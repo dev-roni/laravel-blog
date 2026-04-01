@@ -52,7 +52,9 @@
                  @foreach($post_data as $post)
                 <div class="card blog-card overflow-hidden">
                     <div class="card-img-container">
-                        <img src="../assets/img/feature-1.jpg" class="card-img-top" alt="ব্লগ পোস্ট ইমেজ">
+                        <img src="{{ $post->post_img 
+                            ? asset('storage/' . $post->post_img) 
+                            : asset('storage/posts/No_Image.jpg')  }}" class="card-img-top" alt="ব্লগ পোস্ট ইমেজ">
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-2">

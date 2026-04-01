@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'phone' => '01777774747',
             'remember_token' => Str::random(10),
             'user_role' =>  $this->faker->numberBetween(1, 3),
-            'profile_pic_url' => $this->faker->randomElement(['assets/img/feature-1.jpg', 'assets/img/feature-1.jpg']),
+            'profile_pic_url' => null,
         ];
     }
 

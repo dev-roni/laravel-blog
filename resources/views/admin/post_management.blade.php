@@ -37,9 +37,9 @@
                         <div class="col-md-6">
                             <select class="form-select" onchange="redirectTooption(this)">
                                 <option selected value="{{ route('status_search','all_post') }}">সব স্ট্যাটাস</option>
-                                <option value="{{ route('status_search','publish') }}">প্রকাশিত</option>
+                                <option value="{{ route('status_search','published') }}">প্রকাশিত</option>
                                 <option value="{{ route('status_search','draft') }}">খসড়া</option>
-                                <option value="{{ route('status_search','archive') }}">আর্কাইভড</option>
+                                <option value="{{ route('status_search','pending') }}">আর্কাইভড</option>
                             </select>
                         </div>
                     </div>

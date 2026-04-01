@@ -27,7 +27,7 @@ class postUpdateValidation extends FormRequest
 
             'post_title' => 'required|string|max:255',
 
-            'post_img' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'post_img' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:1048',
 
             'post_content' => 'required|string',
 

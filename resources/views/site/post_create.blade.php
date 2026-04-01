@@ -3,14 +3,14 @@
 @section('content')
 
 <header class="blog-header text-center ">
-        <h1 class="display-4 fw-bold">পোষ্ট তৈরি</h1>
+        <h1 class="display-4 fw-bold">{{$post->exists ? 'পোষ্ট আপডেট' : 'পোষ্ট তৈরি' }}</h1>
 </header>
 
 <div class="container mt-4">
 
     <div class="card">
         <div class="card-header bg-dark text-white">
-            <h5><i class="bi bi-plus-circle"></i> পোষ্ট তৈরি</h5>
+            <h5><i class="bi bi-plus-circle"></i>{{$post->exists ? 'পোষ্ট আপডেট' : 'পোষ্ট তৈরি' }} </h5>
         </div>
 
         <div class="card-body">
@@ -78,7 +78,7 @@
 
                                     <img id="previewImage" class="preview-img d-none">
 
-                                    <input type="file" name="post_img" id="fileInput" hidden>
+                                    <input type="file" name="post_img" id="fileInput" accept="image/*" hidden>
 
                                 </div>
 

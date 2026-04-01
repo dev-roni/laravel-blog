@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\postValidation;
 use App\Http\Requests\postUpdateValidation;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
 
 class UserProfileController extends Controller
 {
@@ -96,13 +98,31 @@ class UserProfileController extends Controller
     }
 
     public function post_store(postValidation $request){
-        $validateData= $request->validated();
-        $validateData['author'] = auth()->id();
-        $validateData['clicked'] = 0;
-        if (Post::create($validateData)) {
-            return redirect()->route('user.profile',auth()->id())->with('success', 'পোষ্ট সফলভাবে তৈরি হয়েছে');
-        } 
-        else{return redirect()->back();}
+        try {
+            DB::beginTransaction();
+
+            $validateData = $request->validated();
+
+            $validateData['author'] = auth()->id();
+            $validateData['clicked'] = 0;
+
+            // image upload
+            if ($request->hasFile('post_img')) {
+                $path = $request->file('post_img')->store('posts', 'public');
+                $validateData['post_img'] = $path;
+            }
+
+            Post::create($validateData);
+
+            DB::commit();
+
+            return redirect()->route('user.profile', auth()->id())->with('success', 'পোষ্ট সফলভাবে তৈরি হয়েছে');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+            return back()->withInput()->with('error', 'কিছু সমস্যা হয়েছে! আবার চেষ্টা করুন');
+        }
     }
 
     public function post_edit($id){
@@ -112,15 +132,30 @@ class UserProfileController extends Controller
         return view('site.post_create',compact('title','all_category','post'));
     }
 
-    public function post_update(postUpdateValidation $request, $id){
-        $validateData= $request->validated();
+    public function post_update(postUpdateValidation $request, $id)
+    {
+        $validateData = $request->validated();
 
-        $post_input =  Post::find($id);
+        $post_input = Post::findOrFail($id);
 
-        if ($post_input && $post_input->update($validateData)) {
-            return redirect()->route('user.profile',auth()->id())->with('success', 'Post update successfully');
-        } 
-        else{return redirect()->back();}
+        // 🔥 image update
+        if ($request->hasFile('post_img')) {
+
+            // ❌ old image delete
+            if ($post_input->post_img && Storage::disk('public')->exists($post_input->post_img)) {
+                Storage::disk('public')->delete($post_input->post_img);
+            }
+
+            // ✅ new image upload
+            $path = $request->file('post_img')->store('posts', 'public');
+            $validateData['post_img'] = $path;
+        }
+
+        $post_input->update($validateData);
+
+        return redirect()
+            ->route('user.profile', auth()->id())
+            ->with('success', 'Post update successfully');
     }
 
     //post delete

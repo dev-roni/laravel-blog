@@ -6,8 +6,18 @@
 
 <!-- পোস্ট ফর্ম -->
 <div class="post-form">
-    <form action="{{ route('post_create_input') }}" method="POST">
+    <form action="{{ route('post_create_input') }}" method="POST" enctype="multipart/form-data">
         @csrf
+                      {{-- ALL ERRORS --}}
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul class="mb-0">
+                          @foreach ($errors->all() as $error)
+                              <li>👉 {{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
         <!-- বেসিক ইনফো সেকশন -->
         <div class="form-section">
             <h4><i class="bi bi-info-circle me-2"></i> মৌলিক তথ্য</h4>
@@ -46,7 +56,7 @@
                 <i class="bi bi-cloud-arrow-up" style="font-size: 2rem; color: var(--primary-light);"></i>
                 <p class="mt-2">ফিচার্ড ইমেজ আপলোড করতে ক্লিক করুন বা ড্র্যাগ এন্ড ড্রপ করুন</p>
                 <img id="featuredImagePreview" class="featured-image-preview" src="#" alt="ফিচার্ড ইমেজ প্রিভিউ">
-                <input type="file" id="featuredImageInput" accept="image/*" style="display: none;">
+                <input name="post_img" type="file" id="featuredImageInput" accept="image/*" style="display: none;">
             </div>
         </div>
 
@@ -75,9 +85,9 @@
                 <div class="col-md-6 mb-3">
                     <label for="postStatus" class="form-label">স্ট্যাটাস</label>
                     <select class="form-select" name="post_status" id="postStatus" required>
-                        <option value="published" selected>প্রকাশিত</option>
+                        <option value="pending" >আবেদিত</option>
                         <option value="draft">খসড়া</option>
-                        <option value="archive" >আর্কাইভ</option>
+
                     </select>
                 </div>
                 <div class="col-md-6 mb-3">

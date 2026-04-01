@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\postValidation;
 use App\Http\Requests\postUpdateValidation;
 
@@ -16,7 +18,7 @@ class PostController extends Controller
     //post search
      public function post_search(Request $request){
         $categories=Category::select('id','category_name')->get();
-        $post_data = Post::where('post_title', 'like', '%' . $request->search_text . '%')->append()->latest()->paginate(10);
+        $post_data = Post::where('post_title', 'like', '%' . $request->search_text . '%')->latest()->paginate(10);
         $title = 'Post Search result';
         return view('admin.post_management',compact('post_data','title','categories'));
     }
@@ -32,7 +34,7 @@ class PostController extends Controller
      public function status_search($status){
         $categories=Category::select('id','category_name')->get();
         $post_data = Post::where('post_status', $status)->paginate(10);
-        $title = 'post_status Search result';
+        $title = $status.' post_status Search result';
         return view('admin.post_management',compact('post_data','title','categories'));
     }
     //Post management view
@@ -62,6 +64,7 @@ class PostController extends Controller
         $request->validate([
             'post_title'    => 'required|string|max:255',
             'post_category' => 'required|string|max:100',
+            'post_img'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:1048',
             'slug'          => 'required|string|max:100|unique:posts,slug',
             'post_content'  => 'required|string',
             'post_status'  => 'required|string',
@@ -75,6 +78,10 @@ class PostController extends Controller
             'post_category.string'   => 'Post category string hote hobe.',
             'post_category.max'      => 'Post category 100 characters er beshi hote parbe na.',
 
+            'post_img.image' => 'শুধুমাত্র ছবি আপলোড করুন',
+            'post_img.mimes' => 'jpg, jpeg, png অথবা webp ফাইল হতে হবে',
+            'post_img.max' => 'ছবির সাইজ 1MB এর বেশি হতে পারবে না',
+
             'slug.required'          => '! স্লাগ দিতে হবে',
             'slug.string'            => '! স্লাগ অক্ষরের হতে হবে',
             'slug.max'               => '! স্লাগ ১০০ অক্ষরের বেশি হতে পারবে না',
@@ -85,17 +92,25 @@ class PostController extends Controller
 
             'post_status'            => '!পোষ্ট স্টেটাস চেক করুন'
         ]);
+
+        //// image upload
+        $path = null;
+        if ($request->hasFile('post_img')) {
+            $path = $request->file('post_img')->store('posts', 'public');
+        }
+
         // Step 2: Store the post
         $post_input = new Post();
         $post_input->post_title    = $request->post_title;
         $post_input->post_category = $request->post_category;
+        $post_input->post_img       = $path;
         $post_input->slug          = $request->slug;
         $post_input->post_content  = $request->post_content;
         $post_input->author        = auth()->id();
         $post_input->post_status   = $request->post_status;
 
         if ($post_input->save()) {
-            return redirect()->route('post_management')->with('success', 'Post update successfully');
+            return redirect()->route('post_management')->with('success', 'সফলভাবে পোষ্ট তৈরি হয়েছে');
         } 
         else {
             return redirect()->back()->with('failed', 'Post creation failed');
@@ -123,15 +138,29 @@ class PostController extends Controller
 
         return view('admin.post_edit',compact('postdata','categories','category_data'),['title' => 'edit_post']);
     }
-    //Post edit update
-    public function post_update(postUpdateValidation $request, $post_id){
+    //Post  update
+    public function post_update(postUpdateValidation $request, $id){
     
         $validateData= $request->validated();
 
-        $post_input =  Post::find($post_id);
+        $post_input =  Post::find($id);
+
+                // 🔥 image update
+        if ($request->hasFile('post_img')) {
+
+            // ❌ old image delete
+            if ($post_input->post_img && Storage::disk('public')->exists($post_input->post_img)) {
+                Storage::disk('public')->delete($post_input->post_img);
+            }
+
+            // ✅ new image upload
+            $path = $request->file('post_img')->store('posts', 'public');
+            $validateData['post_img'] = $path;
+        }
+
 
         if ($post_input && $post_input->update($validateData)) {
-            return redirect()->route('blog_post_view',$post_id)->with('success', 'Post update successfully');
+            return redirect()->route('blog_post_view',$id)->with('success', 'Post update successfully');
         } 
         else{return redirect()->back();}
     }

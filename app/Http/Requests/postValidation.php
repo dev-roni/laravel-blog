@@ -25,7 +25,7 @@ class postValidation extends FormRequest
             'post_title'    => 'required|string|max:250',
             'post_category' => 'required|string|max:100',
             'post_content'  => 'required|string',
-            'post_img'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'post_img'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:1048',
             'post_status'   => 'required|in:draft,pending',
             'author'        => 'nullable|integer',
             'slug'          => 'required|string|max:255|unique:posts,slug',

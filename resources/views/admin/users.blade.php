@@ -66,7 +66,9 @@
                             <td>{{$user->id}}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="assets/img/feature-1.jpg" class="user-avatar me-2" alt="User">
+                                    <img src="{{ $user->profile_pic_url 
+                                        ? asset('storage/' . $user->profile_pic_url) 
+                                        : asset('storage/users/No_Image.jpg') }}" class="user-avatar me-2" alt="User">
                                     <div>
                                         <div class="fw-bold">{{$user->name}}</div>
                                     </div>

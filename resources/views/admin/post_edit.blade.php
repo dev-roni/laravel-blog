@@ -74,18 +74,18 @@
                       <label class="form-label fw-bold">ফিচার্ড ইমেজ</label>
 
                       <input type="file"
-                            class="form-control rounded-3 @error('image') is-invalid @enderror"
-                            name="image">
+                            class="form-control rounded-3 @error('post_img') is-invalid @enderror"
+                            name="post_img">
 
                       @error('image')
                           <div class="invalid-feedback d-block">{{ $message }}</div>
                       @enderror
 
                       <!-- Current Image -->
-                      @if($postdata->image)
+                      @if($postdata->post_img)
                           <div class="mt-3">
                               <p class="mb-1 small text-muted">বর্তমান ইমেজ:</p>
-                              <img src="{{ asset('storage/'.$postdata->image) }}"
+                              <img src="{{ asset('storage/'.$postdata->post_img) }}"
                                   class="img-thumbnail rounded-3"
                                   style="max-height: 150px;">
                           </div>
@@ -133,9 +133,9 @@
                       <select name="post_status"
                               class="form-control @error('post_status') is-invalid @enderror">
 
-                          <option value="published"
-                              {{ old('post_status') == 'published' ? 'selected' : '' }}>
-                              প্রকাশিত
+                          <option value="pending"
+                              {{ old('post_status') == 'pending' ? 'selected' : '' }}>
+                              আবেদিত
                           </option>
 
                           <option value="draft"

@@ -101,7 +101,7 @@ route::middleware('editor')->group(function(){
     route::get('post-view/{post_id}',[PostController::class,'blog_post_view'])->name('blog_post_view');
     // Posts edit
     Route::get('post-edit-view/{post_id}', [PostController::class, 'post_edit_view'])->name('post_edit_view');
-    Route::post('post-update/{post_id}', [PostController::class, 'post_update'])->name('post_update');
+    Route::post('post-update/{id}', [PostController::class, 'post_update'])->name('post_update');
     // Posts delete
     Route::get('post-delete/{post_id}', [PostController::class, 'post_delete'])->name('post_delete');
     //comments

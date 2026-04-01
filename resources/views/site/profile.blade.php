@@ -207,9 +207,9 @@
 
                         <img src="{{ auth()->user()->profile_pic_url 
                             ? asset('storage/' . auth()->user()->profile_pic_url) 
-                            : asset('images/default.png') }}" 
+                            : asset('storage/users/No_Image.jpg') }}" 
                             alt="Profile Image"
-                            class="profile-picture" style="max-height:150px;">
+                            class="profile-picture" >
 
                         <button class="btn-change-picture" data-bs-toggle="modal" data-bs-target="#pictureModal">
                             <i class="bi bi-camera"></i>
@@ -228,17 +228,17 @@
                     <div class="d-flex gap-4 mt-3">
 
                         <div>
-                            <div class="stat-number">124</div>
+                            <div class="stat-number">{{$post_data->total()}}</div>
                             <div class="stat-label">Posts</div>
                         </div>
 
                         <div>
-                            <div class="stat-number">540</div>
+                            <div class="stat-number">5</div>
                             <div class="stat-label">Followers</div>
                         </div>
 
                         <div>
-                            <div class="stat-number">342</div>
+                            <div class="stat-number">12</div>
                             <div class="stat-label">Comments</div>
                         </div>
 
@@ -305,7 +305,7 @@
                                 @endif
                                 <td>{{ $postdata->created_at->format('d-m-Y H:i:s') }}</td>
                                 <td>
-                                    <a href="{{ route('post.edit',$postdata->id) }}" class="btn btn-sm btn-edit btn-action" target="_blank">
+                                    <a href="{{ route('post.edit',$postdata->id) }}" class="btn btn-sm btn-edit btn-action" >
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <!-- Trigger Delete Button -->

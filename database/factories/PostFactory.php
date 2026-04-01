@@ -24,7 +24,7 @@ class PostFactory extends Factory
     {
         return [
             'post_title' => $this->faker->sentence, // A sentence for the title
-            'post_img' => 'assets/img/feature-1.jpg', 
+            'post_img' => null, 
             'post_category' => $this->faker->numberBetween(1, 4),
             'post_content' => $this->faker->paragraphs(rand(3, 7), true), // 3-7 paragraphs of text
             'post_status' => $this->faker->randomElement(['published', 'draft', 'pending']), // Random status

@@ -4,8 +4,8 @@
 <div class="container-fluid py-4">
     <div class="row mb-4">
         <div class="col-12">
-            <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary rounded-pill">
-                <i class="bi bi-arrow-left me-1"></i> ড্যাশবোর্ডে ফিরে যান
+            <a href="{{ route('post_management') }}" class="btn btn-outline-secondary rounded-pill">
+                <i class="bi bi-arrow-left me-1"></i> পোষ্ট ম্যানেজ
             </a>
         </div>
     </div>
@@ -15,7 +15,9 @@
             <div class="card shadow-lg border-0">
                 <!-- পোস্ট হেডার ইমেজ -->
                 <div class="post-header-image">
-                    <img src="{{ asset('Assets/img/one.jpg') }}" class="card-img-top img-fluid rounded-top" 
+                    <img src="{{ $postdata->post_img 
+                            ? asset('storage/' . $postdata->post_img) 
+                            : asset('storage/posts/No_Image.jpg') }}" class="card-img-top img-fluid rounded-top" 
                          alt="{{ $postdata->post_title }}" style="max-height: 400px; object-fit: cover;">
                 </div>
 
