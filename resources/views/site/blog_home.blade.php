@@ -41,7 +41,7 @@
 
     <!-- মূল কন্টেন্ট -->
     <div class="container mt-5">
-        <div class="row">
+        <div class="row align-items-start">
             <!-- ব্লগ পোস্ট -->
             <div class="col-lg-8">
                 <h2 class="mb-4">সাম্প্রতিক পোস্ট</h2>
@@ -135,7 +135,7 @@
 
             </div>
 
-			<div  class="col-lg-1">  </div>
+			<div  class="col-lg-1 ">  </div>
 
             <!-- সাইডবার -->
             <div class="col-lg-3 homeside p-1">

@@ -39,6 +39,10 @@ A robust and scalable blogging platform built with the **Laravel framework**, fe
 
 ---
 
+## ⚡ Performance Optimization
+
+- Implemented and compared loop-based query patterns with Laravel Eloquent eager loading (`with()`), optimizing performance and addressing inefficient N+1 query scenarios.
+
 ## 🛡 Security Features
 
 - **CSRF Protection:** Secure form handling to prevent cross-site request forgery.
@@ -121,7 +125,7 @@ php artisan db:seed
 ```bash
 php artisan storage:link
 ```
-10.**Start development server**
+11.**Start development server**
 ```bash
 php artisan serve
 ```
@@ -143,3 +147,8 @@ After setting up the project, you can log in to the admin panel with the followi
 > Be sure to change these passwords after hosting the project in a production environment.
 
 ---
+## 📄 License
+MIT License
+
+## 🤝 Contributing
+Pull requests are welcome

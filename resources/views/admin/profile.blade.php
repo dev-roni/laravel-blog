@@ -7,7 +7,9 @@
         <div class="row align-items-center">
             <div class="col-md-2">
                 <div class="profile-picture-container">
-                    <img src="{{ $profile_data->profile_pic_url ?? 'assets/img/about.jpg'}}" class="profile-picture" alt="প্রোফাইল ছবি" style="max-width: 350px; max-height: 130px;">
+                    <img src="{{ auth()->user()->profile_pic_url 
+                            ? asset('storage/' . auth()->user()->profile_pic_url) 
+                            : asset('storage/users/No_Image.jpg') }}" class="profile-picture" alt="প্রোফাইল ছবি" style="max-width: 350px; max-height: 130px;">
                     <button class="btn btn-sm btn-change-picture" data-bs-toggle="modal" data-bs-target="#changePictureModal">
                         <i class="bi bi-camera"></i> ছবি পরিবর্তন
                     </button>

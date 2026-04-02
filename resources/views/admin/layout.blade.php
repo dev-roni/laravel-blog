@@ -88,7 +88,7 @@
                 <div class="dropdown">
                     @if(Auth::check())
                     <a class="dropdown-toggle d-flex align-items-center text-decoration-none comment-author" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown">
-                        <img src="assets/img/feature-1.jpg" style="max-width: 150px; max-height: 40px;" class="rounded-circle me-2" alt="Profile">
+                        <img src="{{asset('storage/'.auth()->user()->profile_pic_url)}}" style="max-width: 150px; max-height: 40px;" class="rounded-circle me-2" alt="Profile">
                         <span>{{Auth::User()->user_role}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
